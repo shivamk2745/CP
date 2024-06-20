@@ -10,14 +10,7 @@ int helper(int n,int k,int l,int c,int d,int p,int nl,int np){
 int main() {
     // Write C++ code here
     int n, k, l, c, d, p, nl, np;
-    cin >>n;
-    cin >>k;
-    cin >>l;
-    cin >>c;
-    cin >>d;
-    cin >>p;
-    cin >>nl;
-    cin>>np;
+    cin >>n>>k>>l>>c>>d>>p>>nl>>np;
     cout<<helper(n, k, l, c, d, p, nl, np);
     return 0;
 }
