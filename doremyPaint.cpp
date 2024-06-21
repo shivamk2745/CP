@@ -1,21 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 string helper(vector<int>& arr,int n){
-    bool swapped=true;
-    while(swapped){
-        swapped=false;
-        for(int i=1;i<n-1;i++){
-        if(arr[i-1]<arr[i] && arr[i+1]<arr[i]){
-            swap(arr[i],arr[i+1]);
-            swapped=true;
-        }
+    if(n==2) return "Yes";
+    map<int,int> mpp;
+    for(int i=0;i<n;i++){
+        mpp[arr[i]]++;
     }
+    if(mpp.size()>=3) return "No";
+    if(abs(mpp.begin()->second - mpp.rbegin()->second)<=1){
+        return "Yes";
+    }else{
+        return "NO";
     }
-    
-    for(int i=0;i<n-1;i++){
-        if(arr[i]>arr[i+1]) return "NO";
-    }
-    return "YES";
+     
 }
 int main() {
     int t;
@@ -31,3 +28,5 @@ int main() {
    } 
     return 0;
 }
+
+
