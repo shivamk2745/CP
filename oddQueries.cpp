@@ -2,34 +2,29 @@
 #include<bits/stdc++.h>
 #include <iostream>
 using namespace std;
-string helper(int n,vector<int>& nums,int l,int r,int k){
-    long long sum=0;
-    for(int i=0;i<n;i++){
-        sum+=nums[i];
-    }
-    long long partSum=0;
-    for(int i=l-1;i<r;i++){
-        partSum+=nums[i];
-    }
-    sum-=partSum;
-    long long add=(r-l+1)*k;
-    sum+=add;
-    return (sum%2==0) ? "NO" : "YES";
-}
 int main() {
    int t;
    cin>>t;
    while(t--){
-   int n,q;
+   long long n,q;
    cin>>n>>q;
-   vector<int> nums(n);
-   for(int i=0;i<n;i++){
+  vector<long long> nums(n+1);
+    vector<long long> pre(n+1);
+      long long curr=0;
+   for(int i=1;i<=n;i++){
        cin>>nums[i];
+        pre[i]=pre[i-1];
+        pre[i]+=nums[i];
    }
-   int l,r,k;
    for(int i=0;i<q;i++){
+   long long l,r,k;
        cin>>l>>r>>k;
-       cout<<helper(n,nums,l,r,k)<<endl;
+      long long res=pre[n]-(pre[r]-pre[l-1])+k*(r-l+1);
+      if(res%2!=0){
+          cout<<"YES"<<endl;
+      }else{
+          cout<<"NO"<<endl;
+      }
    }
    }
     return 0;
