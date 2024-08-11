@@ -1,57 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-int calculateSum(const vector<int>& nums) {
-    return accumulate(nums.begin(), nums.end(), 0);
-}
-
-int MAD(const unordered_map<int, int>& freq) {
-    int maxi = 0;
-    for (auto& [num, count] : freq) {
-        if (count >= 2) {
-            maxi = max(maxi, num);
-        }
+long long helper(long long n, vector<long long>& nums) {
+unordered_map<long long, long long> mpp;
+    long long sum=0;
+    for(long long j=0;j<2;j++){
+    for(long long i=0;i<n;i++){
+        sum+=nums[i];
     }
-    return maxi;
-}
-
-int helper(int n, vector<int>& nums) {
-    int totalSum = 0;
-
-    while (true) {
-        int currentSum = calculateSum(nums);
-        totalSum += currentSum;
-
-        if (currentSum == 0) break;
-
-        vector<int> b(n, 0);
-        unordered_map<int, int> freq;
-        
-        freq[nums[0]]++;
-        b[0] = MAD(freq);
-
-        for (int i = 1; i < n; ++i) {
-            freq[nums[i]]++;
-            b[i] = MAD(freq);
+    long long cnt = 0;
+     for (long long i = 0; i < n; i++) {
+            mpp[nums[i]]++;
+            if (mpp[nums[i]] == 2) {
+                cnt = max(nums[i], cnt);
+            }
+            nums[i] = cnt;
         }
-
-        nums = b;
+    mpp.clear();
     }
-
-    return totalSum;
+    long long total=sum;
+    for(long long i=0;i<n;i++){
+        long long a=nums[i];
+        long long b=n-i;
+        long long mul=a*(b);
+        total+=mul;
+    }
+    return  total;
 }
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
+    long long t;
     cin >> t;
     while (t--) {
-        int n;
+        long long n;
         cin >> n;
-        vector<int> nums(n);
-        for (int i = 0; i < n; i++) {
+        vector<long long> nums(n);
+        for (long long i = 0; i < n; i++) {
             cin >> nums[i];
         }
         cout << helper(n, nums) << endl;
